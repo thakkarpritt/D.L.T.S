@@ -1,10 +1,20 @@
 from tkinter import *
 from openpyxl import *
 from tkinter import ttk
+from tkcalendar import DateEntry
+from tkinter import messagebox
+import pandas as pd
+import xlrd
 
 root = Tk()
 root.title('Pujara Enterprise')
 root.configure(bg='black')
+
+list1=[]
+list2=[]
+list3=[]
+list4=[]
+
 
 
 
@@ -29,28 +39,15 @@ remarks=StringVar()
 
 
 
-wb = load_workbook('C:\\Users\\pritp\\Downloads\\excel1.xlsx')
+wb = load_workbook('C:\\Pujara enterprise\\pujara enterprise.xlsx')
+
+"""wb1= xlrd.open_workbook('C:\\Pujara enterprise\\Data.xlsx')"""
 
 sheet = wb.active
 
+"""sheet1=wb1.sheet_by_index(0)"""
+
 def excel():
-    sheet.column_dimensions['A'].width = 30
-    sheet.column_dimensions['B'].width = 10
-    sheet.column_dimensions['C'].width = 10
-    sheet.column_dimensions['D'].width = 20
-    sheet.column_dimensions['E'].width = 20
-    sheet.column_dimensions['F'].width = 40
-    sheet.column_dimensions['G'].width = 50
-    sheet.column_dimensions['H'].width = 30
-    sheet.column_dimensions['I'].width = 10
-    sheet.column_dimensions['J'].width = 10
-    sheet.column_dimensions['K'].width = 20
-    sheet.column_dimensions['L'].width = 20
-    sheet.column_dimensions['M'].width = 40
-    sheet.column_dimensions['N'].width = 50
-    sheet.column_dimensions['O'].width = 50
-    sheet.column_dimensions['P'].width = 40
-    sheet.column_dimensions['Q'].width = 50
 
 
     sheet.cell(row=1, column=1).value = "Date"
@@ -71,74 +68,6 @@ def excel():
     sheet.cell(row=1, column=16).value = "Freight"
     sheet.cell(row=1, column=17).value = "Remarks"
 
-def focus1(event):
-
-    date.focus_set()
-
-def focus2(event):
-
-    pname.focus_set()
-
-def focus3(event):
-
-    grade.focus_set()
-
-def focus4(event):
-
-    tname.focus_set()
-
-def focus5(event):
-
-    dno.focus_set()
-
-def focus6(event):
-
-    ddf.focus_set()
-
-def focus7(event):
-
-    ddt.focus_set()
-
-def focus8(event):
-
-    db.focus_set()
-
-def focus9(event):
-
-    tweight.focus_set()
-
-def focus10(event):
-
-    tno.focus_set()
-
-def focus11(event):
-
-    totalweight.focus_set()
-
-def focus12(event):
-
-    ulweight.focus_set()
-
-def focus13(event):
-
-    delito.focus_set()
-
-
-def focus14(event):
-
-    cp.focus_set()
-
-def focus15(event):
-
-    sp.focus_set()
-
-def focus16(event):
-
-    freight.focus_set()
-
-def focus17(event):
-
-    remarks.focus_set()
 
 
 
@@ -161,11 +90,15 @@ class app:
 
         self.button1 = Button(root, text='Entry tab', bg='white', fg='black', font=('times new roman', 10),
                          command=self.entrytab)
-        self.button1.place(relx=0.4, rely=0.4, anchor='center')
+        self.button1.place(relx=0.3, rely=0.4, anchor='center')
 
         self.button2 = Button(root, text='Search tab', bg='white', fg='black', font=('times new roman', 10),
                          command=self.resulttab)
-        self.button2.place(relx=0.6, rely=0.4, anchor='center')
+        self.button2.place(relx=0.5, rely=0.4, anchor='center')
+
+        self.button3 = Button(root, text='Add', bg='white', fg='black', font=('times new roman', 10),
+                         command=self.addtab)
+        self.button3.place(relx=0.7, rely=0.4, anchor='center')
 
 
     def entrytab(self):
@@ -179,23 +112,26 @@ class app:
         self.title2.place(relx=0.5, rely=0.2, anchor='center')
         self.button1 = Button(root, text='Home', bg='white', fg='black', font=('times new roman', 10),
                               command=self.maintab)
-        self.button1.place(relx=0.4, rely=0.15, anchor='center')
+        self.button1.place(relx=0.3, rely=0.15, anchor='center')
 
         self.button2 = Button(root, text='Search tab', bg='white', fg='black', font=('times new roman', 10),
                               command=self.resulttab)
-        self.button2.place(relx=0.6, rely=0.15, anchor='center')
+        self.button2.place(relx=0.5, rely=0.15, anchor='center')
+
+        self.button3 = Button(root, text='Add', bg='white', fg='black', font=('times new roman', 10),
+                         command=self.addtab)
+        self.button3.place(relx=0.7, rely=0.15, anchor='center')
 
 
         F1=LabelFrame(root, bd=10, relief=GROOVE, text='Enter details here', font=('times new romon', 15, 'bold'),
                         fg='Orange', bg='white')
         F1.place(relx=0.5, rely=0.6,anchor='center', width=1300, height=600)
-
         date_lbl = Label(F1, text='Date:-', font=('times new romon', 13, 'bold'), bg='White',
                           fg='#00FF33')
         date_lbl.place(relx=0.07,rely=0.07,anchor='center')
-        date_txt = Entry(F1, width=15, textvariable=date, font='arial 10 bold', relief=SUNKEN, bd=3,
-                          bg='#FFFF66')
-        date_txt.place(relx=0.3,rely=0.07,anchor='center')
+        cal = DateEntry( F1,width=15,background='darkblue',textvariable=date,date_pattern='dd/mm/yy', foreground='white', borderwidth=2)
+        cal.place(relx=0.3,rely=0.07,anchor='center')
+
 
 
         grade_lbl = Label(F1, text='Grade:-', font=('times new romon', 13, 'bold'), bg='White',
@@ -343,11 +279,15 @@ class app:
         self.title2.place(relx=0.5, rely=0.2, anchor='center')
         self.button1 = Button(root, text='Home', bg='white', fg='black', font=('times new roman', 10),
                               command=self.maintab)
-        self.button1.place(relx=0.4, rely=0.15, anchor='center')
+        self.button1.place(relx=0.3, rely=0.15, anchor='center')
 
         self.button2 = Button(root, text='Entry tab', bg='white', fg='black', font=('times new roman', 10),
                               command=self.entrytab)
-        self.button2.place(relx=0.6, rely=0.15, anchor='center')
+        self.button2.place(relx=0.5, rely=0.15, anchor='center')
+
+        self.button3 = Button(root, text='Add', bg='white', fg='black', font=('times new roman', 10),
+                         command=self.addtab)
+        self.button3.place(relx=0.7, rely=0.15, anchor='center')
 
         F1 = LabelFrame(root, bd=10, relief=GROOVE, text='Enter details to search here', font=('times new romon', 15, 'bold'),
                         fg='Orange', bg='white')
@@ -357,17 +297,17 @@ class app:
         date_lbl = Label(F1, text='Date From:-', font=('times new romon', 13, 'bold'), bg='White',
                          fg='#00FF33')
         date_lbl.place(relx=0.09, rely=0.07, anchor='center')
-        date_txt = Entry(F1, width=15, textvariable=date, font='arial 10 bold', relief=SUNKEN, bd=3,
-                         bg='#FFFF66')
-        date_txt.place(relx=0.3, rely=0.07, anchor='center')
+        cal = DateEntry(F1, width=15, background='darkblue', textvariable=date, date_pattern='dd/mm/yy',
+                        foreground='white', borderwidth=2)
+        cal.place(relx=0.3, rely=0.07, anchor='center')
 
 
         date_lbl = Label(F1, text='Date To:-', font=('times new romon', 13, 'bold'), bg='White',
                          fg='#00FF33')
         date_lbl.place(relx=0.7, rely=0.07, anchor='center')
-        date_txt = Entry(F1, width=15, textvariable=datet, font='arial 10 bold', relief=SUNKEN, bd=3,
-                         bg='#FFFF66')
-        date_txt.place(relx=0.87, rely=0.07, anchor='center')
+        cal = DateEntry(F1, width=15, background='darkblue', textvariable=datet, date_pattern='dd/mm/yy',
+                        foreground='white', borderwidth=2)
+        cal.place(relx=0.8, rely=0.07, anchor='center')
 
         grade_lbl = Label(F1, text='Grade:-', font=('times new romon', 13, 'bold'), bg='White',
                           fg='#00FF33')
@@ -408,6 +348,70 @@ class app:
         btn2.place(relx=0.7, rely=0.85, anchor='center')
 
 
+    def addtab(self):
+        for i in self.master.winfo_children():
+            i.destroy()
+        self.title1 = Label(root, text="Pujara Enterprise Pvt. Ltd.", bg='white', fg='black',
+                            font=('times new roman', 47, 'bold'), justify=CENTER)
+        self.title1.pack(fill=X)
+        self.title2 = Label(root, text="Search Tab", bg='black', fg='White',
+                            font=('times new roman', 35, 'bold'))
+        self.title2.place(relx=0.5, rely=0.2, anchor='center')
+        self.button1 = Button(root, text='Home', bg='white', fg='black', font=('times new roman', 10),
+                              command=self.maintab)
+        self.button1.place(relx=0.3, rely=0.15, anchor='center')
+
+        self.button2 = Button(root, text='Entry tab', bg='white', fg='black', font=('times new roman', 10),
+                              command=self.entrytab)
+        self.button2.place(relx=0.5, rely=0.15, anchor='center')
+
+        self.button3 = Button(root, text='Search Tab', bg='white', fg='black', font=('times new roman', 10),
+                         command=self.resulttab)
+        self.button3.place(relx=0.7, rely=0.15, anchor='center')
+
+        F1 = LabelFrame(root, bd=10, relief=GROOVE, text='Enter details to Add here', font=('times new romon', 15, 'bold'),
+                        fg='Orange', bg='white')
+        F1.place(relx=0.5, rely=0.6, anchor='center', width=1300, height=600)
+
+
+        grade_lbl = Label(F1, text='Grade:-', font=('times new romon', 13, 'bold'), bg='White',
+                          fg='#00FF33')
+        grade_lbl.place(relx=0.075, rely=0.14, anchor='center')
+        grade_txt = Entry(F1, width=15, textvariable=grade, font='arial 10 bold', relief=SUNKEN, bd=3,
+                          bg='#FFFF66')
+        grade_txt.place(relx=0.3, rely=0.14, anchor='center')
+
+
+        pname_lbl = Label(F1, text='Party Name:-', font=('times new romon', 13, 'bold'), bg='White',
+                          fg='#00FF33')
+        pname_lbl.place(relx=0.0925, rely=0.21, anchor='center')
+        pname_txt = Entry(F1, width=15, textvariable=pname, font='arial 10 bold', relief=SUNKEN, bd=3,
+                          bg='#FFFF66')
+        pname_txt.place(relx=0.3, rely=0.21, anchor='center')
+
+
+        tname_lbl = Label(F1, text='Transporter Name:-', font=('times new romon', 13, 'bold'), bg='White',
+                          fg='#00FF33')
+        tname_lbl.place(relx=0.112, rely=0.28, anchor='center')
+        tname_txt = Entry(F1, width=15, textvariable=tname, font='arial 10 bold', relief=SUNKEN, bd=3,
+                          bg='#FFFF66')
+        tname_txt.place(relx=0.3, rely=0.28, anchor='center')
+
+
+        delito_lbl = Label(F1, text='Delivered To:-', font=('times new romon', 13, 'bold'), bg='White',
+                           fg='#00FF33')
+        delito_lbl.place(relx=0.0955, rely=0.35, anchor='center')
+        delito_txt = Entry(F1, width=15, textvariable=delito, font='arial 10 bold', relief=SUNKEN, bd=3,
+                           bg='#FFFF66')
+        delito_txt.place(relx=0.3, rely=0.35, anchor='center')
+
+        btn1 = Button(F1, text='Clear', font='arial 15 bold', command=clear, bg='#00FFFF', width=15)
+        btn1.place(relx=0.3, rely=0.85, anchor='center')
+
+        btn2 = Button(F1, text='Submit', font='arial 15 bold', command=dataadd, bg='#00FFFF', width=15)
+        btn2.place(relx=0.7, rely=0.85, anchor='center')
+
+
 
 
 def insert():
@@ -415,25 +419,24 @@ def insert():
     global date, pname, grade, tname, dno, ddf, ddt, db, tweight, tno, totalweight, ulweight, delito, cp, sp, remarks, freight
     excel()
 
-    if (date == "" and
-            pname == "" and
-            grade== "" and
-            tname== "" and
-            dno== "" and
-            ddf== "" and
-            ddt== "" and
-            db== "" and
-            tweight== "" and
-            tno == "" and
-            totalweight== "" and
-            ulweight== "" and
-            delito== "" and
-            cp== "" and
-            sp== "" and
-            freight== "" and
-            remarks== ""):
+    if (    pname.get() == "" and
+            grade.get()== "" and
+            tname.get()== "" and
+            dno.get()== "" and
+            ddf.get()== "" and
+            ddt.get()== "" and
+            db.get()== "" and
+            tweight.get()== "" and
+            tno.get() == "" and
+            totalweight.get()== "" and
+            ulweight.get()== "" and
+            delito.get()== "" and
+            cp.get()== "" and
+            sp.get()== "" and
+            freight.get()== "" and
+            remarks.get()== ""):
 
-        print("Please enter details")
+        messagebox.showerror("error","Please enter details!!!")
     else:
         current_row = sheet.max_row
         current_column = sheet.max_column
@@ -477,34 +480,48 @@ def insert():
         remarks = Entry(root)
 
 
-        date.bind("<Return>", focus1)
-        pname.bind("<Return>", focus2)
-        grade.bind("<Return>", focus3)
-        tname.bind("<Return>", focus4)
-        dno.bind("<Return>", focus5)
-        ddf.bind("<Return>", focus6)
-        ddt.bind("<Return>", focus7)
-        db.bind("<Return>", focus8)
-        tweight.bind("<Return>", focus9)
-        tno.bind("<Return>", focus10)
-        totalweight.bind("<Return>", focus11)
-        ulweight.bind("<Return>", focus12)
-        delito.bind("<Return>", focus13)
-        cp.bind("<Return>", focus14)
-        sp.bind("<Return>", focus15)
-        freight.bind("<Return>", focus16)
-        remarks.bind("<Return>", focus17)
-
-        wb.save('C:\\Users\\pritp\\Downloads\\excel1.xlsx')
+        wb.save('C:\\Pujara enterprise\\pujara enterprise.xlsx')
 
         date.focus_set()
 
         excel()
 
+def dataadd():
+  """  y=0
+    if pname.get() != "":
+        for i in range(sheet1.nrows):
+            y=y+1
+        
+        
+        sheet1.cell(row=y + 1, column=1).value = pname.get()
+
+    
+    elif grade.get() !="":
+        for i in range(sheet1.nrows):
+            y=y+1
+    
+        sheet1.cell(row=y + 1, column=2).value = grade.get()
+    
+    elif tname.get() !="":
+        for i in range(sheet1.nrows):
+            y=y+1 
+        
+        sheet1.cell(row=y+ 1, column=3).value = tname.get()
+
+    elif delito.get() !="":
+        for i in range(sheet1.nrows):
+            y=y+1
+        
+        sheet1.cell(row=y + 1, column=4).value = delito.get()
+
+    else:
+        messagebox.showerror("error","Please enter details!!!")
+
+    wb1.save('C:\\Pujara enterprise\\Data.xlsx')
+"""
+
 
 def clear():
-    date.set('')
-    ddt.set('')
     pname.set('')
     grade.set('')
     tname.set('')
@@ -514,7 +531,7 @@ def clear():
     db.set('')
     tweight.set('')
     tno.set('')
-    totalweight.set('')
+    totalweight.set('')                                                            
     ulweight.set('')
     delito.set('')
     cp.set('')
