@@ -1,2 +1,3 @@
-# D.L.T.S
-Data logger for Transport service - The project is made using Tkinter (Python) and is used for managing data for transportation services
+EasyInvoice
+Developed a billing software using Python and Tkinter to generate invoices, automatically record them in Excel, and create monthly
+customer reports for streamlined financial tracking
